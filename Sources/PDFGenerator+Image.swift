@@ -14,6 +14,9 @@ extension PDFGenerator {
         let y = pageBounds.midY - imageSize.height / 2
         let frame = CGRect(x: x, y: y, width: imageSize.width, height: imageSize.height)
         drawImage(Container.contentCenter, image: image, frame: frame, caption: NSAttributedString())
+        
+        // 绘制完当前图片，就换一页
+        generateNewPage()
     }
     
     func drawImage(_ container: Container, image: UIImage, size: CGSize, caption: NSAttributedString, sizeFit: ImageSizeFit) {
