@@ -9,7 +9,7 @@
 extension PDFGenerator {
     
     func drawCenterImage(_ image: UIImage) {
-        if contentHeight > 0 {  // 当前页已经有内容，则创建新页
+        if contentHeight > pageBounds.midY {  // 说明已经绘制过有效内容了。(与midY比较，为了防止添加页码会影响)
             generateNewPage()
         }
         
