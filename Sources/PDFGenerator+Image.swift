@@ -8,6 +8,14 @@
 
 extension PDFGenerator {
     
+    func drawCenterImage(_ image: UIImage) {
+        let (imageSize, _) = calculateImageCaptionSize(Container.contentCenter, image: image, size: CGSize.zero, caption: NSAttributedString(), sizeFit: .widthHeight)
+        let x = pageBounds.midX - imageSize.width / 2
+        let y = pageBounds.midY - imageSize.height / 2
+        let frame = CGRect(x: x, y: y, width: imageSize.width, height: imageSize.height)
+        drawImage(Container.contentCenter, image: image, frame: frame, caption: NSAttributedString())
+    }
+    
     func drawImage(_ container: Container, image: UIImage, size: CGSize, caption: NSAttributedString, sizeFit: ImageSizeFit) {
         var (imageSize, captionSize) = calculateImageCaptionSize(container, image: image, size: size, caption: caption, sizeFit: sizeFit)
         
@@ -18,9 +26,9 @@ extension PDFGenerator {
             case .contentLeft:
                 if (contentHeight + imageSize.height + captionSize.height > contentSize.height || (sizeFit == .height && imageSize.height < size.height)) {
                     generateNewPage()
-                    
+
                     (imageSize, captionSize) = calculateImageCaptionSize(container, image: image, size: size, caption: caption, sizeFit: sizeFit)
-                    
+
                     return contentHeight + maxHeaderHeight() + headerSpace
                 }
                 return contentHeight + maxHeaderHeight() + headerSpace

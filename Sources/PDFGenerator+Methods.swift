@@ -38,6 +38,11 @@ extension PDFGenerator {
         commands += [(container, .addImage(image: image, size: size, caption: caption, sizeFit: sizeFit))]
     }
     
+    // 将图片添加至居中位置（垂直和水平都居中）
+    open func addCenterImage(_ image: UIImage) {
+        commands += [(Container.none, .addCenterImage(image: image))]
+    }
+    
     open func addImagesInRow(_ container: Container = Container.contentLeft, images: [UIImage], captions: [NSAttributedString] = [], spacing: CGFloat = 5.0) {
         commands += [(container, .addImagesInRow(images: images, captions: captions, spacing: spacing))]
     }
